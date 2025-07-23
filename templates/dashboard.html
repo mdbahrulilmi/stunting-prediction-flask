@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Dashboard</h2>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center bg-light mb-3">
+            <div class="card-body">
+                <h5>Total Anak</h5>
+                <h3>{{ total_anak }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center bg-danger text-white mb-3">
+            <div class="card-body">
+                <h5>Anak Stunting</h5>
+                <h3>{{ anak_stunting }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center bg-success text-white mb-3">
+            <div class="card-body">
+                <h5>Anak Normal</h5>
+                <h3>{{ anak_normal }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

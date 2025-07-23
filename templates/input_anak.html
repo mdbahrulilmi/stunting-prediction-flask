@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Input Data Anak</h2>
+<form method="POST" class="card p-4">
+    <div class="mb-3">
+        <label class="form-label">Nama</label>
+        <input type="text" class="form-control" name="nama" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">NIK</label>
+        <input type="text" class="form-control" name="nik" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Alamat</label>
+        <input type="text" class="form-control" name="alamat" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Jenis Kelamin</label>
+        <select name="jenis_kelamin" class="form-select" required>
+            <option value="L">Laki-laki</option>
+            <option value="P">Perempuan</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Tanggal Lahir</label>
+        <input type="date" class="form-control" name="tanggal_lahir" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Nama Orang Tua</label>
+        <input type="text" class="form-control" name="nama_orang_tua" required>
+    </div>
+    <button class="btn btn-primary">Simpan</button>
+</form>
+{% endblock %}

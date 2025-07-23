@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Detail Anak</h3>
+<p><strong>Nama:</strong> {{ anak.nama }}</p>
+<p><strong>NIK:</strong> {{ anak.nik }}</p>
+<p><strong>Orang Tua:</strong> {{ anak.nama_orang_tua }}</p>
+<p><strong>Alamat:</strong> {{ anak.alamat }}</p>
+<p><strong>Tanggal Lahir:</strong> {{ anak.tanggal_lahir }}</p>
+
+<a href="{{ url_for('input_pemeriksaan', anak_id=anak.id) }}" class="btn btn-success mb-3">+ Tambah Pemeriksaan</a>
+
+<h4>Riwayat Pemeriksaan</h4>
+<table class="table table-bordered table-striped">
+    <thead class="table-light">
+        <tr>
+            <th>Bulan</th>
+            <th>Tahun</th>
+            <th>Berat (kg)</th>
+            <th>Tinggi (cm)</th>
+            <th>Status</th>
+            <th>Petugas</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in pemeriksaan_list %}
+        <tr>
+            <td>{{ p.bulan_pemeriksaan }}</td>
+            <td>{{ p.tahun_pemeriksaan }}</td>
+            <td>{{ p.berat_badan }}</td>
+            <td>{{ p.tinggi_badan }}</td>
+            <td>{{ p.status_stunting }}</td>
+            <td>{{ p.petugas_id }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

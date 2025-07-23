@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Profil Petugas</h2>
+<div class="card p-4">
+    <p><strong>Nama Lengkap:</strong> {{ user.nama_lengkap }}</p>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Role:</strong> {{ user.role }}</p>
+</div>
+{% endblock %}

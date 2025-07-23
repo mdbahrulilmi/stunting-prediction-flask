@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Manajemen User</h2>
+<table class="table table-bordered table-striped">
+    <thead class="table-primary">
+        <tr>
+            <th>Nama Lengkap</th>
+            <th>Username</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for u in user_list %}
+        <tr>
+            <td>{{ u.nama_lengkap }}</td>
+            <td>{{ u.username }}</td>
+            <td>{{ u.role }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
