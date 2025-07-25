@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="bg-gradient-primary text-white rounded-3 p-4 mb-4 shadow-sm">
+    <h2 class="fw-bold"><i class="bi bi-clipboard-data me-2"></i> Konfirmasi pengukuran</h2>
+</div>
+
+<div class="card border-0 shadow-sm p-4">
+    <p><strong>👶 Nama Anak:</strong> {{ anak.nama }}</p>
+    <p><strong>📅 Umur:</strong> {{ umur }} bulan</p>
+    <p><strong>⚖️ Berat:</strong> {{ berat }} kg</p>
+    <p><strong>📏 Tinggi:</strong> {{ tinggi }} cm</p>
+    <p><strong>👧👦 Jenis Kelamin:</strong> {{ anak.jenis_kelamin }}</p>
+    {% set label = "Beresiko Stunting" if status.lower() == "stunting" else "Normal" %}
+    <p><strong>📊 Status Gizi:</strong> 
+        <span class="badge {{ 'bg-danger' if status.lower() == 'stunting' else 'bg-success' }} text-white">
+            {{ label }}
+        </span>
+    </p>
+
+    
+    <form method="POST">
+        <input type="hidden" name="berat_badan" value="{{ berat }}">
+        <input type="hidden" name="tinggi_badan" value="{{ tinggi }}">
+        <input type="hidden" name="bulan" value="{{ bulan }}">
+        <input type="hidden" name="catatan_gizi" value="{{ catatan }}">
+        <input type="hidden" name="confirm" value="1">
+
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{{ url_for('anak.input_pengukuran', id=anak.id) }}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left me-1"></i> Kembali
+            </a>
+            <button class="btn btn-success" type="submit">
+                <i class="bi bi-check-circle me-1"></i> Simpan pengukuran
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

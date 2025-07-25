@@ -1,9 +1,52 @@
 {% extends "base.html" %}
 {% block content %}
-<h2 class="mb-4">Profil Petugas</h2>
-<div class="card p-4">
-    <p><strong>Nama Lengkap:</strong> {{ user.nama_lengkap }}</p>
-    <p><strong>Username:</strong> {{ user.username }}</p>
-    <p><strong>Role:</strong> {{ user.role }}</p>
+
+<!-- Header Section dengan background gradient -->
+<div class="bg-gradient-primary text-white rounded-3 p-4 mb-4 shadow-sm">
+    <h2 class="mb-1 fw-bold">
+        <i class="bi bi-person-badge-fill me-2"></i>
+        Profil Petugas
+    </h2>
+    <p class="mb-0 opacity-75">Informasi akun Anda sebagai petugas sistem</p>
 </div>
+
+<!-- Card Informasi Profil -->
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <div class="mb-3">
+            <i class="bi bi-person me-2 text-primary"></i>
+            <strong>Nama Lengkap:</strong>
+            <span class="ms-2 text-dark">{{ user.nama_lengkap }}</span>
+        </div>
+        <div class="mb-3">
+            <i class="bi bi-person-circle me-2 text-primary"></i>
+            <strong>Username:</strong>
+            <span class="ms-2 text-muted font-monospace">{{ user.username }}</span>
+        </div>
+        <div>
+            <i class="bi bi-shield-lock me-2 text-primary"></i>
+            <strong>Role:</strong>
+            <span class="ms-2 badge bg-secondary bg-opacity-25 text-dark px-3 py-1 rounded-pill">
+                {{ user.role|capitalize }}
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.card {
+    border-radius: 0.75rem !important;
+    transition: all 0.3s ease;
+}
+
+.bi {
+    font-size: 1.1rem;
+}
+</style>
+
 {% endblock %}

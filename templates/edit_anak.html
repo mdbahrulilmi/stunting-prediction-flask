@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="bg-gradient-primary text-white rounded-3 p-4 mb-4 shadow-sm">
+    <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div>
+            <h2 class="mb-1 fw-bold">
+                <i class="bi bi-pencil-square me-2"></i> Edit Data Anak
+            </h2>
+            <p class="mb-0 opacity-75">Ubah informasi anak sesuai kebutuhan</p>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <form method="POST" class="card-body p-4">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label fw-semibold"><i class="bi bi-credit-card me-1"></i>NIK</label>
+                <input type="text" class="form-control" name="nik" value="{{ anak.nik }}" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold"><i class="bi bi-person me-1"></i>Nama Anak</label>
+                <input type="text" class="form-control" name="nama" value="{{ anak.nama_anak }}" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold"><i class="bi bi-gender-ambiguous me-1"></i>Jenis Kelamin</label>
+                <select name="jenis_kelamin" class="form-select" required>
+                    <option value="L" {% if anak.jenis_kelamin == 'L' %}selected{% endif %}>Laki-laki</option>
+                    <option value="P" {% if anak.jenis_kelamin == 'P' %}selected{% endif %}>Perempuan</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold"><i class="bi bi-calendar-event me-1"></i>Tanggal Lahir</label>
+                {% set tgl = anak.tgl_lahir %}
+                {% if tgl and '/' in tgl %}
+                    {% set tgl_obj = tgl.split('/') %}
+                    {% set tgl_formatted = tgl_obj[2] ~ '-' ~ tgl_obj[1] ~ '-' ~ tgl_obj[0] %}
+                {% else %}
+                    {% set tgl_formatted = '' %}
+                {% endif %}
+                <input type="date" class="form-control" name="tanggal_lahir" value="{{ tgl_formatted }}" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold"><i class="bi bi-person-vcard me-1"></i>Nama Ibu</label>
+                <input type="text" class="form-control" name="nama_orang_tua" value="{{ anak.nama_ibu }}" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold"><i class="bi bi-geo-alt me-1"></i>Alamat</label>
+                <input type="text" class="form-control" name="alamat" value="{{ anak.alamat }}" required>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end mt-4">
+            <button class="btn btn-info shadow-sm text-white">
+                <i class="bi bi-save me-2"></i>Update Data
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+</style>
+
+{% endblock %}

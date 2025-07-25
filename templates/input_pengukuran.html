@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Header Section dengan background gradient -->
+<div class="bg-gradient-primary text-white rounded-3 p-4 mb-4 shadow-sm">
+    <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div>
+            <h2 class="mb-1 fw-bold">
+                <i class="bi bi-activity me-2"></i>
+                Input Pemeriksaan - {{ anak.nama }}
+            </h2>
+            <p class="mb-0 opacity-75">Masukkan data hasil pemeriksaan kesehatan anak</p>
+        </div>
+    </div>
+</div>
+
+<!-- Form Input Pemeriksaan -->
+<div class="card border-0 shadow-sm">
+    <form method="POST" class="card-body p-4">
+        <div class="mb-3">
+            <label class="form-label fw-semibold">
+                <i class="bi bi-scale-1x me-1"></i>Berat Badan (kg)
+            </label>
+            <input type="number" step="0.1" class="form-control" name="berat_badan" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-semibold">
+                <i class="bi bi-rulers me-1"></i>Tinggi Badan (cm)
+            </label>
+            <input type="number" step="0.1" class="form-control" name="tinggi_badan" required>
+        </div>
+
+        <!-- Hidden field bulan format YYYY_MON -->
+        <input type="hidden" name="bulan" id="bulan_full" value="">
+
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-success shadow-sm">
+                <i class="bi bi-save me-2"></i>Simpan Pemeriksaan
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const bulanNames = ["JAN", "FEB", "MAR", "APR", "MEI", "JUN", "JUL", "AGS", "SEP", "OKT", "NOV", "DES"];
+        const now = new Date();
+        const bulan = bulanNames[now.getMonth()];
+        const tahun = now.getFullYear();
+        document.getElementById('bulan_full').value = `${tahun}_${bulan}`;
+    });
+</script>
+
+<!-- Custom Styles -->
+<style>
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+.card {
+    border-radius: 0.75rem !important;
+    transition: all 0.3s ease;
+}
+.btn {
+    transition: all 0.2s ease;
+}
+.btn:hover {
+    transform: translateY(-1px);
+}
+.form-label i {
+    color: #667eea;
+}
+</style>
+
+{% endblock %}
+    

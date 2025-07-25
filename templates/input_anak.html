@@ -1,34 +1,61 @@
 {% extends "base.html" %}
 {% block content %}
-<h2 class="mb-4">Input Data Anak</h2>
-<form method="POST" class="card p-4">
-    <div class="mb-3">
-        <label class="form-label">Nama</label>
-        <input type="text" class="form-control" name="nama" required>
+
+<div class="bg-gradient-primary text-white rounded-3 p-4 mb-4 shadow-sm">
+    <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div>
+            <h2 class="mb-1 fw-bold">
+                <i class="bi bi-person-plus-fill me-2"></i> Tambah Data Anak
+            </h2>
+            <p class="mb-0 opacity-75">Silakan lengkapi form berikut untuk menambahkan data anak</p>
+        </div>
     </div>
-    <div class="mb-3">
-        <label class="form-label">NIK</label>
-        <input type="text" class="form-control" name="nik" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Alamat</label>
-        <input type="text" class="form-control" name="alamat" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Jenis Kelamin</label>
-        <select name="jenis_kelamin" class="form-select" required>
-            <option value="L">Laki-laki</option>
-            <option value="P">Perempuan</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Tanggal Lahir</label>
-        <input type="date" class="form-control" name="tanggal_lahir" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Nama Orang Tua</label>
-        <input type="text" class="form-control" name="nama_orang_tua" required>
-    </div>
-    <button class="btn btn-primary">Simpan</button>
-</form>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <form method="POST" class="card-body p-4">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">NIK</label>
+                <input type="text" class="form-control" name="nik" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Nama Lengkap Anak</label>
+                <input type="text" class="form-control" name="nama" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Tanggal Lahir</label>
+                <input type="date" class="form-control" name="tanggal_lahir" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Jenis Kelamin</label>
+                <select class="form-select" name="jenis_kelamin" required>
+                    <option value="" disabled selected>Pilih jenis kelamin</option>
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label fw-semibold">Alamat</label>
+                <textarea class="form-control" name="alamat" rows="2" required></textarea>
+            </div>
+            <div class="col-md-12">
+                <label class="form-label fw-semibold">Nama Orang Tua</label>
+                <input type="text" class="form-control" name="nama_orang_tua" required>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end mt-4">
+            <button type="submit" class="btn btn-success shadow-sm">
+                <i class="bi bi-save me-2"></i> Simpan Data Anak
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+</style>
+
 {% endblock %}

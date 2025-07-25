@@ -1,23 +1,62 @@
 {% extends "base.html" %}
 {% block content %}
+
+<!-- Header dengan gradient -->
+<div class="bg-gradient-primary text-white rounded-3 p-4 mb-5 shadow-sm text-center">
+    <h2 class="fw-bold mb-1">
+        <i class="bi bi-box-arrow-in-right me-2"></i>Login
+    </h2>
+    <p class="mb-0 opacity-75">Silakan masuk untuk mengakses sistem</p>
+</div>
+
+<!-- Form Login -->
 <div class="row justify-content-center">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title mb-4">Login</h4>
+    <div class="col-md-5 col-lg-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h5 class="fw-semibold mb-4 text-center">
+                    <i class="bi bi-shield-lock text-primary me-2"></i>Form Login Petugas
+                </h5>
                 <form method="POST">
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" name="username" required>
+                        <label for="username" class="form-label fw-semibold">
+                            <i class="bi bi-person-circle me-1 text-primary"></i>Username
+                        </label>
+                        <input type="text" class="form-control" name="username" id="username" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" required>
+                    <div class="mb-4">
+                        <label for="password" class="form-label fw-semibold">
+                            <i class="bi bi-lock-fill me-1 text-primary"></i>Password
+                        </label>
+                        <input type="password" class="form-control" name="password" id="password" required>
                     </div>
-                    <button class="btn btn-primary w-100" type="submit">Login</button>
+                    <button class="btn btn-success w-100 shadow-sm" type="submit">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Masuk
+                    </button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Custom style -->
+<style>
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.card {
+    border-radius: 0.75rem !important;
+    transition: all 0.3s ease;
+}
+
+.btn {
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+</style>
+
 {% endblock %}

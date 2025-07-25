@@ -1,37 +1,141 @@
 {% extends "base.html" %}
 {% block content %}
-<h3>Detail Anak</h3>
-<p><strong>Nama:</strong> {{ anak.nama }}</p>
-<p><strong>NIK:</strong> {{ anak.nik }}</p>
-<p><strong>Orang Tua:</strong> {{ anak.nama_orang_tua }}</p>
-<p><strong>Alamat:</strong> {{ anak.alamat }}</p>
-<p><strong>Tanggal Lahir:</strong> {{ anak.tanggal_lahir }}</p>
 
-<a href="{{ url_for('input_pemeriksaan', anak_id=anak.id) }}" class="btn btn-success mb-3">+ Tambah Pemeriksaan</a>
+<div class="row mb-4">
+  <div class="col">
+    <h2>
+      <i class="bi bi-person-circle me-2 text-primary"></i>
+      Detail Anak - {{ anak.nama_anak }}
+    </h2>
+  </div>
+</div>
 
-<h4>Riwayat Pemeriksaan</h4>
-<table class="table table-bordered table-striped">
-    <thead class="table-light">
-        <tr>
-            <th>Bulan</th>
-            <th>Tahun</th>
-            <th>Berat (kg)</th>
-            <th>Tinggi (cm)</th>
-            <th>Status</th>
-            <th>Petugas</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for p in pemeriksaan_list %}
-        <tr>
-            <td>{{ p.bulan_pemeriksaan }}</td>
-            <td>{{ p.tahun_pemeriksaan }}</td>
-            <td>{{ p.berat_badan }}</td>
-            <td>{{ p.tinggi_badan }}</td>
-            <td>{{ p.status_stunting }}</td>
-            <td>{{ p.petugas_id }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="card mb-4 shadow-sm border-0">
+  <div class="card-header bg-primary text-white">
+    <h4><i class="bi bi-info-circle me-2"></i>Informasi Anak</h4>
+  </div>
+  <div class="card-body">
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <label class="text-muted fw-semibold">Nama Lengkap</label>
+        <p class="fs-5 mb-0">{{ anak.nama_anak }}</p>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <label class="text-muted fw-semibold">NIK</label>
+        <p class="font-monospace">{{ anak.nik or '-' }}</p>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <label class="text-muted fw-semibold">Jenis Kelamin</label>
+        <p>
+          {% if anak.jenis_kelamin == 'L' %}
+            <span class="badge bg-info">Laki-laki</span>
+          {% else %}
+            <span class="badge bg-warning">Perempuan</span>
+          {% endif %}
+        </p>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <label class="text-muted fw-semibold">Tanggal Lahir</label>
+        <p>{{ anak.tgl_lahir.strftime('%d %B %Y') if anak.tgl_lahir else '-' }}</p>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <label class="text-muted fw-semibold">Nama Ibu</label>
+        <p>{{ anak.nama_ibu or '-' }}</p>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <label class="text-muted fw-semibold">Status Stunting</label>
+        <p>
+          {% if anak.status_gizi.lower() == 'stunting' %}
+            <span class="badge bg-danger">Beresiko Stunting</span>
+          {% elif anak.status_gizi.lower() == 'tidak stunting' %}
+            <span class="badge bg-success">Normal</span>
+          {% else %}
+            <span class="badge bg-warning text-dark">Tidak Sesuai</span>
+          {% endif %}
+        </p>
+      </div>
+      <div class="col-12">
+        <label class="text-muted fw-semibold">Alamat</label>
+        <p>{{ anak.alamat or '-' }}</p>
+      </div>
+    </div>
+
+    <div class="mt-4 text-end">
+      <a href="{{ url_for('anak.input_pengukuran', id=anak.id) }}" class="btn btn-success">
+        <i class="bi bi-plus-circle me-1"></i> Tambah pengukuran
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm border-0">
+  <div class="card-header bg-primary text-white">
+    <h4><i class="bi bi-activity me-2"></i>Riwayat pengukuran</h4>
+  </div>
+  <div class="card-body p-0">
+    {% if pengukuran_list %}
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="text-center">Bulan</th>
+            <th class="text-center">Tahun</th>
+            <th class="text-center">Berat</th>
+            <th class="text-center">Tinggi</th>
+            <th class="text-center">Petugas</th>
+            <th class="text-center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in pengukuran_list %}
+          <tr>
+            <td class="text-center">{{ p.bulan }}</td>
+            <td class="text-center">{{ p.tahun }}</td>
+            <td class="text-center">{{ p.berat }} kg</td>
+            <td class="text-center">{{ p.tinggi }} cm</td>
+            <td class="text-center">{{ p.petugas_nama or 'Tidak diketahui' }}</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-danger" onclick="confirmDelete({{ p.id }})">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="text-center py-5">
+        <p class="text-muted">Belum ada pengukuran</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Modal Konfirmasi Hapus -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+  <div class="modal-dialog">
+    <form id="deleteForm" method="POST" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Konfirmasi Hapus</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>Yakin ingin menghapus pengukuran ini?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Hapus</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+function confirmDelete(id) {
+  const form = document.getElementById('deleteForm');
+  form.action = "/pengukuran/" + id + "/delete";
+  const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+  modal.show();
+}
+</script>
+
 {% endblock %}
