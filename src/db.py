@@ -194,12 +194,11 @@ def update_user(user_id, user):
     cursor = conn.cursor()
     cursor.execute("""
         UPDATE users
-        SET nama_lengkap = %s, username = %s, email = %s, password = %s, status = %s
+        SET nama_lengkap = %s, username = %s, password = %s, status = %s
         WHERE id = %s
     """, (
         user['nama_lengkap'],
         user['username'],
-        user['email'],
         user['password'],
         user['status'],
         user_id

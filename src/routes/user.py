@@ -64,7 +64,6 @@ def edit_user(id):
         updated_user = {
             'nama_lengkap': request.form['nama'],
             'username': request.form['username'],
-            'email': request.form['email'],
             'password': request.form['password'],
             'status': request.form['status']
         }

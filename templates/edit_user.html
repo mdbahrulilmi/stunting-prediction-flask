@@ -15,7 +15,7 @@
                 <label class="form-label fw-semibold">
                     <i class="bi bi-person me-1"></i>Nama
                 </label>
-                <input type="text" class="form-control" name="nama" value="{{ user.nama }}" required>
+                <input type="text" class="form-control" name="nama" value="{{ user.nama_lengkap }}" required>
             </div>
             <div class="col-md-6">
                 <label class="form-label fw-semibold">
@@ -25,23 +25,17 @@
             </div>
             <div class="col-md-6">
                 <label class="form-label fw-semibold">
-                    <i class="bi bi-envelope me-1"></i>Email
-                </label>
-                <input type="email" class="form-control" name="email" value="{{ user.email }}">
-            </div>
-            <div class="col-md-6">
-                <label class="form-label fw-semibold">
                     <i class="bi bi-shield-lock me-1"></i>Password (Kosongkan jika tidak diganti)
                 </label>
                 <input type="password" class="form-control" name="password">
             </div>
             <div class="col-md-6">
                 <label class="form-label fw-semibold">
-                    <i class="bi bi-person-gear me-1"></i>Role
+                    <i class="bi bi-person-gear me-1"></i>Status
                 </label>
-                <select name="role" class="form-select" required>
-                    <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
-                    <option value="petugas" {% if user.role == 'petugas' %}selected{% endif %}>Petugas</option>
+                <select name="status" class="form-select" required>
+                    <option value="admin" {% if user.status == 'admin' %}selected{% endif %}>Admin</option>
+                    <option value="petugas" {% if user.status == 'petugas' %}selected{% endif %}>Petugas</option>
                 </select>
             </div>
         </div>
