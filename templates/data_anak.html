@@ -1,29 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- Header Section dengan background gradient -->
+<!-- Header Section -->
 <div class="bg-gradient-primary text-white rounded-3 p-4 mb-4 shadow-sm">
     <div class="d-flex flex-wrap justify-content-between align-items-center">
         <div>
             <h2 class="mb-1 fw-bold">
-                <i class="bi bi-people-fill me-2"></i>
-                Data Anak
+                <i class="bi bi-people-fill me-2"></i> Data Anak
             </h2>
             <p class="mb-0 opacity-75">Kelola data anak untuk monitoring kesehatan</p>
         </div>
-        
-        <!-- Search Form dengan styling yang lebih soft -->
         <form class="d-flex mt-3 mt-md-0" method="get" action="{{ url_for('anak.data_anak') }}">
             <div class="input-group shadow-sm" style="min-width: 300px;">
                 <span class="input-group-text bg-white border-0 text-muted">
                     <i class="bi bi-search"></i>
                 </span>
-                <input 
-                    type="text" 
-                    name="search" 
-                    class="form-control border-0 shadow-none" 
-                    placeholder="Cari nama, NIK, atau alamat..." 
-                    value="{{ search or '' }}">
+                <input type="text" name="search" class="form-control border-0 shadow-none"
+                       placeholder="Cari nama, NIK, atau alamat..." value="{{ search or '' }}">
                 <button type="submit" class="btn btn-light border-0 px-3">
                     <i class="bi bi-search me-1"></i>Cari
                 </button>
@@ -32,7 +25,6 @@
     </div>
 </div>
 
-<!-- Alert untuk hasil pencarian -->
 {% if search %}
 <div class="alert alert-info border-0 shadow-sm d-flex align-items-center mb-4">
     <i class="bi bi-info-circle me-2"></i>
@@ -50,13 +42,11 @@
 </div>
 {% endif %}
 
-<!-- Tombol Tambah dengan posisi yang lebih baik -->
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
         {% if anak_list %}
             <small class="text-muted">
-                <i class="bi bi-collection me-1"></i>
-                Menampilkan {{ anak_list|length }} data
+                <i class="bi bi-collection me-1"></i> Menampilkan {{ anak_list|length }} data
             </small>
         {% endif %}
     </div>
@@ -66,7 +56,6 @@
 </div>
 
 {% if anak_list %}
-<!-- Card wrapper untuk tabel -->
 <div class="card border-0 shadow-sm">
     <div class="card-body p-0">
         <div class="table-responsive">
@@ -92,7 +81,7 @@
                 </thead>
                 <tbody>
                     {% for a in anak_list %}
-                    <tr class="border-bottom border-light">
+                    <tr class="border-bottom border-light {% if a.status_gizi == 'Stunting' %}table-danger{% endif %}">
                         <td class="px-4 py-3 text-center">
                             <span class="badge bg-light text-dark rounded-pill">{{ loop.index }}</span>
                         </td>
@@ -116,16 +105,16 @@
                         </td>
                         <td class="py-3 text-center">
                             <div class="btn-group shadow-sm" role="group">
-                                <a href="{{ url_for('anak.detail_anak', id=a.id) }}" 
+                                <a href="{{ url_for('anak.detail_anak', id=a.id) }}"
                                    class="btn btn-outline-primary btn-sm px-3">
                                     <i class="bi bi-eye me-1"></i>Detail
                                 </a>
-                                <a href="{{ url_for('anak.edit_anak', id=a.id) }}" 
-                                    class="btn btn-outline-warning btn-sm px-3"
-                                    title="Edit Data Anak">
+                                <a href="{{ url_for('anak.edit_anak', id=a.id) }}"
+                                   class="btn btn-outline-warning btn-sm px-3"
+                                   title="Edit Data Anak">
                                     <i class="bi bi-pencil me-1"></i>Edit
                                 </a>
-                                <a href="{{ url_for('anak.input_pengukuran', id=a.id) }}" 
+                                <a href="{{ url_for('anak.input_pengukuran', id=a.id) }}"
                                    class="btn btn-outline-success btn-sm px-3">
                                     <i class="bi bi-activity me-1"></i>Periksa
                                 </a>
@@ -139,62 +128,51 @@
     </div>
 </div>
 
-<!-- Pagination dengan styling yang lebih soft -->
 {% if total_pages > 1 %}
 <div class="d-flex justify-content-center mt-4">
     <nav aria-label="Navigasi halaman">
         <ul class="pagination shadow-sm border-0">
             <li class="page-item {% if current_page == 1 %}disabled{% endif %}">
-                <a class="page-link border-0 text-muted" href="?search={{ search or '' }}&page={{ current_page - 1 }}" aria-label="Previous">
+                <a class="page-link border-0 text-muted" href="?search={{ search or '' }}&page={{ current_page - 1 }}">
                     <i class="bi bi-chevron-left"></i>
                 </a>
             </li>
-
             {% set start = 1 %}
             {% if current_page > 5 %}
                 {% set start = current_page - 4 %}
             {% endif %}
-
             {% set end = start + 9 %}
             {% if end > total_pages %}
                 {% set end = total_pages %}
             {% endif %}
-
             {% if end - start < 9 %}
                 {% set start = end - 9 %}
-                {% if start < 1 %}
-                    {% set start = 1 %}
-                {% endif %}
+                {% if start < 1 %}{% set start = 1 %}{% endif %}
             {% endif %}
-
             {% for page_num in range(start, end + 1) %}
-                <li class="page-item {% if page_num == current_page %}active{% endif %}">
-                    <a class="page-link border-0 {% if page_num == current_page %}bg-primary text-white{% else %}text-muted{% endif %}" 
-                       href="?search={{ search or '' }}&page={{ page_num }}">{{ page_num }}</a>
-                </li>
+            <li class="page-item {% if page_num == current_page %}active{% endif %}">
+                <a class="page-link border-0 {% if page_num == current_page %}bg-primary text-white{% else %}text-muted{% endif %}"
+                   href="?search={{ search or '' }}&page={{ page_num }}">{{ page_num }}</a>
+            </li>
             {% endfor %}
-
             <li class="page-item {% if current_page == total_pages %}disabled{% endif %}">
-                <a class="page-link border-0 text-muted" href="?search={{ search or '' }}&page={{ current_page + 1 }}" aria-label="Next">
+                <a class="page-link border-0 text-muted" href="?search={{ search or '' }}&page={{ current_page + 1 }}">
                     <i class="bi bi-chevron-right"></i>
                 </a>
             </li>
         </ul>
     </nav>
 </div>
-
-<!-- Info pagination -->
 <div class="text-center mt-3">
     <small class="text-muted">
         <i class="bi bi-info-circle me-1"></i>
         Halaman {{ current_page }} dari {{ total_pages }}
-        {% if search %} (pencarian: "{{ search }}"){% endif %}
+        {% if search %}(pencarian: "{{ search }}"){% endif %}
     </small>
 </div>
 {% endif %}
 
 {% else %}
-<!-- Empty state yang lebih menarik -->
 <div class="card border-0 shadow-sm">
     <div class="card-body text-center py-5">
         {% if search %}
@@ -230,71 +208,55 @@
 {% endif %}
 
 <style>
-/* Custom styling untuk UI yang lebih soft */
 .bg-gradient-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
 }
-
 .table-hover tbody tr:hover {
     background-color: rgba(102, 126, 234, 0.05) !important;
 }
-
 .btn {
     transition: all 0.2s ease;
 }
-
 .btn:hover {
     transform: translateY(-1px);
 }
-
 .card {
     transition: all 0.3s ease;
     border-radius: 0.75rem !important;
 }
-
 .pagination .page-link:hover {
     background-color: #f8f9fa;
     border-color: transparent;
     color: #667eea;
 }
-
 .pagination .page-item.active .page-link {
     background-color: #667eea;
     border-color: #667eea;
 }
-
 .input-group {
     border-radius: 0.5rem;
     overflow: hidden;
 }
-
 .alert {
     border-radius: 0.75rem !important;
 }
-
 .badge {
     font-weight: 500;
 }
-
 .text-truncate {
     max-width: 200px;
 }
-
-/* Responsive improvements */
 @media (max-width: 768px) {
     .btn-group .btn {
         padding: 0.25rem 0.5rem;
         font-size: 0.875rem;
     }
-    
     .btn-group .btn .me-1 {
         margin-right: 0 !important;
     }
-    
     .btn-group .btn span {
         display: none;
     }
-    
     .text-truncate {
         max-width: 120px;
     }

@@ -159,12 +159,6 @@ def detail_anak(id):
     if not anak:
         abort(404, "Anak tidak ditemukan")
 
-    # Konversi tgl_lahir ke datetime object
-    try:
-        anak['tgl_lahir'] = datetime.strptime(anak['tgl_lahir'], '%Y-%m-%d') if anak['tgl_lahir'] else None
-    except (ValueError, TypeError):
-        anak['tgl_lahir'] = None
-
     pengukuran_raw = fetch_pengukuran_by_balita_id(id)
 
     bulan_map = {

@@ -1,6 +1,9 @@
 🧒 Stunting Monitor App
 A web-based application built with Flask to monitor child growth and predict stunting status using the K-Nearest Neighbors (KNN) algorithm. This tool aims to assist healthcare workers and parents in identifying early signs of stunting in children based on key anthropometric data.
 
+🔍 Preview
+![Preview App](preview.PNG)
+
 📌 Features
 🧠 Stunting prediction using the KNN algorithm
 
